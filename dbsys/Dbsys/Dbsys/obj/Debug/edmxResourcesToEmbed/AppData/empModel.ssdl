@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="employeemanageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="roleId" />
+    </Key>
+    <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roleType" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="salary">
+    <Key>
+      <PropertyRef Name="salaryId" />
+    </Key>
+    <Property Name="salaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="salary" Type="int" Nullable="false" />
+    <Property Name="userId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="userAccount">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="roleId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userInformation">
+    <Key>
+      <PropertyRef Name="userInfoId" />
+    </Key>
+    <Property Name="userInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userInFname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userInLname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userInEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userInAddress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="userId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'employeemanage.dbo.vw_all_roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_all_roles">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="salary" />
+      <PropertyRef Name="roleType" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="salary" Type="int" Nullable="false" />
+    <Property Name="roleType" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_salary_userAccount">
+    <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+    <End Role="salary" Type="Self.salary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userAccount">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="salary">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userAccount_roles">
+    <End Role="roles" Type="Self.roles" Multiplicity="1" />
+    <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="roleId" />
+      </Principal>
+      <Dependent Role="userAccount">
+        <PropertyRef Name="roleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userInformation_userAccount">
+    <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+    <End Role="userInformation" Type="Self.userInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userAccount">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="userInformation">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="employeemanageModelStoreContainer">
+    <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="salary" EntityType="Self.salary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userAccount" EntityType="Self.userAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="userInformation" EntityType="Self.userInformation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_all_roles" EntityType="Self.vw_all_roles" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[vw_all_roles].[username] AS [username], 
+[vw_all_roles].[password] AS [password], 
+[vw_all_roles].[salary] AS [salary], 
+[vw_all_roles].[roleType] AS [roleType]
+FROM [dbo].[vw_all_roles] AS [vw_all_roles]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_salary_userAccount" Association="Self.FK_salary_userAccount">
+      <End Role="userAccount" EntitySet="userAccount" />
+      <End Role="salary" EntitySet="salary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userAccount_roles" Association="Self.FK_userAccount_roles">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="userAccount" EntitySet="userAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userInformation_userAccount" Association="Self.FK_userInformation_userAccount">
+      <End Role="userAccount" EntitySet="userAccount" />
+      <End Role="userInformation" EntitySet="userInformation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

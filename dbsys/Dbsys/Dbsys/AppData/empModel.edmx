@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="employeemanageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salary">
+          <Key>
+            <PropertyRef Name="salaryId" />
+          </Key>
+          <Property Name="salaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="salary" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="userAccount">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userInformation">
+          <Key>
+            <PropertyRef Name="userInfoId" />
+          </Key>
+          <Property Name="userInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userInFname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userInLname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userInEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userInAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'employeemanage.dbo.vw_all_roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_all_roles">
+          <Key>
+            <PropertyRef Name="username" />
+            <PropertyRef Name="password" />
+            <PropertyRef Name="salary" />
+            <PropertyRef Name="roleType" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="salary" Type="int" Nullable="false" />
+          <Property Name="roleType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_salary_userAccount">
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+          <End Role="salary" Type="Self.salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="salary">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userAccount_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userInformation_userAccount">
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+          <End Role="userInformation" Type="Self.userInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="userInformation">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="employeemanageModelStoreContainer">
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salary" EntityType="Self.salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userAccount" EntityType="Self.userAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userInformation" EntityType="Self.userInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_all_roles" EntityType="Self.vw_all_roles" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[vw_all_roles].[username] AS [username], 
+[vw_all_roles].[password] AS [password], 
+[vw_all_roles].[salary] AS [salary], 
+[vw_all_roles].[roleType] AS [roleType]
+FROM [dbo].[vw_all_roles] AS [vw_all_roles]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_salary_userAccount" Association="Self.FK_salary_userAccount">
+            <End Role="userAccount" EntitySet="userAccount" />
+            <End Role="salary" EntitySet="salary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userAccount_roles" Association="Self.FK_userAccount_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="userAccount" EntitySet="userAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userInformation_userAccount" Association="Self.FK_userInformation_userAccount">
+            <End Role="userAccount" EntitySet="userAccount" />
+            <End Role="userInformation" EntitySet="userInformation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="employeemanageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="userAccount" Relationship="Self.FK_userAccount_roles" FromRole="roles" ToRole="userAccount" />
+        </EntityType>
+        <EntityType Name="salary">
+          <Key>
+            <PropertyRef Name="salaryId" />
+          </Key>
+          <Property Name="salaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="salary1" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="userAccount" Relationship="Self.FK_salary_userAccount" FromRole="salary" ToRole="userAccount" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="userAccount">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_userAccount_roles" FromRole="userAccount" ToRole="roles" />
+          <NavigationProperty Name="salary" Relationship="Self.FK_salary_userAccount" FromRole="userAccount" ToRole="salary" />
+          <NavigationProperty Name="userInformation" Relationship="Self.FK_userInformation_userAccount" FromRole="userAccount" ToRole="userInformation" />
+        </EntityType>
+        <EntityType Name="userInformation">
+          <Key>
+            <PropertyRef Name="userInfoId" />
+          </Key>
+          <Property Name="userInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userInFname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userInLname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userInEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userInAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="userAccount" Relationship="Self.FK_userInformation_userAccount" FromRole="userInformation" ToRole="userAccount" />
+        </EntityType>
+        <EntityType Name="vw_all_roles">
+          <Key>
+            <PropertyRef Name="username" />
+            <PropertyRef Name="password" />
+            <PropertyRef Name="salary" />
+            <PropertyRef Name="roleType" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="salary" Type="Int32" Nullable="false" />
+          <Property Name="roleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_userAccount_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_salary_userAccount">
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+          <End Role="salary" Type="Self.salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="salary">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_userInformation_userAccount">
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+          <End Role="userInformation" Type="Self.userInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="userInformation">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="employeemanageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="salary" EntityType="Self.salary" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="userAccount" EntityType="Self.userAccount" />
+          <EntitySet Name="userInformation" EntityType="Self.userInformation" />
+          <EntitySet Name="vw_all_roles" EntityType="Self.vw_all_roles" />
+          <AssociationSet Name="FK_userAccount_roles" Association="Self.FK_userAccount_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="userAccount" EntitySet="userAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_salary_userAccount" Association="Self.FK_salary_userAccount">
+            <End Role="userAccount" EntitySet="userAccount" />
+            <End Role="salary" EntitySet="salary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_userInformation_userAccount" Association="Self.FK_userInformation_userAccount">
+            <End Role="userAccount" EntitySet="userAccount" />
+            <End Role="userInformation" EntitySet="userInformation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="employeemanageModelStoreContainer" CdmEntityContainer="employeemanageEntities">
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="employeemanageModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="roleType" ColumnName="roleType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salary">
+            <EntityTypeMapping TypeName="employeemanageModel.salary">
+              <MappingFragment StoreEntitySet="salary">
+                <ScalarProperty Name="salaryId" ColumnName="salaryId" />
+                <ScalarProperty Name="salary1" ColumnName="salary" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="employeemanageModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userAccount">
+            <EntityTypeMapping TypeName="employeemanageModel.userAccount">
+              <MappingFragment StoreEntitySet="userAccount">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userInformation">
+            <EntityTypeMapping TypeName="employeemanageModel.userInformation">
+              <MappingFragment StoreEntitySet="userInformation">
+                <ScalarProperty Name="userInfoId" ColumnName="userInfoId" />
+                <ScalarProperty Name="userInFname" ColumnName="userInFname" />
+                <ScalarProperty Name="userInLname" ColumnName="userInLname" />
+                <ScalarProperty Name="userInEmail" ColumnName="userInEmail" />
+                <ScalarProperty Name="userInAddress" ColumnName="userInAddress" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_all_roles">
+            <EntityTypeMapping TypeName="employeemanageModel.vw_all_roles">
+              <MappingFragment StoreEntitySet="vw_all_roles">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="roleType" ColumnName="roleType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

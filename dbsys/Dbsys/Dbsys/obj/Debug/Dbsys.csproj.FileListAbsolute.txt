@@ -1,0 +1,17 @@
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.FrmCEO.resources
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.FrmEmployee.resources
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.FrmLogin.resources
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.FrmRegister.resources
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.FrmSecretary.resources
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.Properties.Resources.resources
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.csproj.GenerateResource.cache
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\bin\Debug\Dbsys.exe.config
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\bin\Debug\Dbsys.exe
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\bin\Debug\Dbsys.pdb
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\bin\Debug\EntityFramework.dll
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\bin\Debug\EntityFramework.xml
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.csproj.CopyComplete
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.exe
+C:\Users\Administrator\Desktop\dbsys\Dbsys\Dbsys\obj\Debug\Dbsys.pdb

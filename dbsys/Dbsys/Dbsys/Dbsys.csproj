@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AABE82E2-89C0-48A4-9ACB-FE2032B49187}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Dbsys</RootNamespace>
+    <AssemblyName>Dbsys</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppData\empModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>empModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\empModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\empModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>empModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\roles.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\salary.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\sysdiagrams.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\userAccount.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\userInformation.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\vw_all_roles.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Constant.cs" />
+    <Compile Include="employeemanageDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>employeemanageDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="employeemanageDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>employeemanageDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCEO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCEO.Designer.cs">
+      <DependentUpon>FrmCEO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEmployee.Designer.cs">
+      <DependentUpon>FrmEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRegister.Designer.cs">
+      <DependentUpon>FrmRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSecretary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSecretary.Designer.cs">
+      <DependentUpon>FrmSecretary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserLogged.cs" />
+    <Compile Include="UserRepository.cs" />
+    <EmbeddedResource Include="FrmCEO.resx">
+      <DependentUpon>FrmCEO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEmployee.resx">
+      <DependentUpon>FrmEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRegister.resx">
+      <DependentUpon>FrmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSecretary.resx">
+      <DependentUpon>FrmSecretary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EntityDeploy Include="AppData\empModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>empModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="AppData\empModel.edmx.diagram">
+      <DependentUpon>empModel.edmx</DependentUpon>
+    </None>
+    <None Include="employeemanageDataSet.xsc">
+      <DependentUpon>employeemanageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="employeemanageDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>employeemanageDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="employeemanageDataSet.xss">
+      <DependentUpon>employeemanageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="employeemanageDataSet1.xsc">
+      <DependentUpon>employeemanageDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="employeemanageDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>employeemanageDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="employeemanageDataSet1.xss">
+      <DependentUpon>employeemanageDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\The_world_studios-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exiixix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\userthin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppData\empModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>empModel.Context.cs</LastGenOutput>
+      <DependentUpon>empModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="AppData\empModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>empModel.edmx</DependentUpon>
+      <LastGenOutput>empModel.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\registerereroffice.jpg" />
+    <None Include="Resources\secretaryoffice.jpg" />
+    <None Include="Resources\papapapa.jpg" />
+    <None Include="Resources\password1.png" />
+    <None Include="Resources\p[asspsps.jpg" />
+    <None Include="Resources\loginoffice.jpeg" />
+    <None Include="Resources\office.jpg" />
+    <None Include="Resources\eye.png" />
+    <None Include="Resources\logott.png" />
+    <None Include="Resources\salary.png" />
+    <None Include="Resources\person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

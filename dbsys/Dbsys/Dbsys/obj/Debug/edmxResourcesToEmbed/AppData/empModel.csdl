@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="employeemanageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="roleId" />
+    </Key>
+    <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="roleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="userAccount" Relationship="Self.FK_userAccount_roles" FromRole="roles" ToRole="userAccount" />
+  </EntityType>
+  <EntityType Name="salary">
+    <Key>
+      <PropertyRef Name="salaryId" />
+    </Key>
+    <Property Name="salaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="salary1" Type="Int32" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="userAccount" Relationship="Self.FK_salary_userAccount" FromRole="salary" ToRole="userAccount" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="userAccount">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="roleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="roles" Relationship="Self.FK_userAccount_roles" FromRole="userAccount" ToRole="roles" />
+    <NavigationProperty Name="salary" Relationship="Self.FK_salary_userAccount" FromRole="userAccount" ToRole="salary" />
+    <NavigationProperty Name="userInformation" Relationship="Self.FK_userInformation_userAccount" FromRole="userAccount" ToRole="userInformation" />
+  </EntityType>
+  <EntityType Name="userInformation">
+    <Key>
+      <PropertyRef Name="userInfoId" />
+    </Key>
+    <Property Name="userInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userInFname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userInLname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userInEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userInAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="userAccount" Relationship="Self.FK_userInformation_userAccount" FromRole="userInformation" ToRole="userAccount" />
+  </EntityType>
+  <EntityType Name="vw_all_roles">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="salary" />
+      <PropertyRef Name="roleType" />
+    </Key>
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="salary" Type="Int32" Nullable="false" />
+    <Property Name="roleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_userAccount_roles">
+    <End Role="roles" Type="Self.roles" Multiplicity="1" />
+    <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="roleId" />
+      </Principal>
+      <Dependent Role="userAccount">
+        <PropertyRef Name="roleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_salary_userAccount">
+    <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+    <End Role="salary" Type="Self.salary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userAccount">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="salary">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_userInformation_userAccount">
+    <End Role="userAccount" Type="Self.userAccount" Multiplicity="1" />
+    <End Role="userInformation" Type="Self.userInformation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userAccount">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="userInformation">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="employeemanageEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="roles" EntityType="Self.roles" />
+    <EntitySet Name="salary" EntityType="Self.salary" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="userAccount" EntityType="Self.userAccount" />
+    <EntitySet Name="userInformation" EntityType="Self.userInformation" />
+    <EntitySet Name="vw_all_roles" EntityType="Self.vw_all_roles" />
+    <AssociationSet Name="FK_userAccount_roles" Association="Self.FK_userAccount_roles">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="userAccount" EntitySet="userAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_salary_userAccount" Association="Self.FK_salary_userAccount">
+      <End Role="userAccount" EntitySet="userAccount" />
+      <End Role="salary" EntitySet="salary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_userInformation_userAccount" Association="Self.FK_userInformation_userAccount">
+      <End Role="userAccount" EntitySet="userAccount" />
+      <End Role="userInformation" EntitySet="userInformation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
